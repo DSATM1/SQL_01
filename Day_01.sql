@@ -52,3 +52,6 @@ INSERT INTO orders (order_id, customer_id, name) VALUES
 (4, 101, 'Headphones'),
 (5, 104, 'Keyboard'),
 (6, 102, 'Mouse');
+
+select * from customers;
+select * from orders;
