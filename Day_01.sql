@@ -55,3 +55,10 @@ INSERT INTO orders (order_id, customer_id, name) VALUES
 
 select * from customers;
 select * from orders;
+
+select customers.name, count(*) 
+from customers 
+left join orders 
+on customers.customer_id = orders.customer_id 
+group by customers.name
+having count(*) > 1;
