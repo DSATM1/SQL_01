@@ -24,3 +24,31 @@ WHERE salary > (
 
 select * from employees;
 
+USE sql_practice;
+
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+INSERT INTO customers (customer_id, name) VALUES
+(101, 'Sonu'),
+(102, 'Manu'),
+(103, 'Dinu'),
+(104, 'Damu');
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    name VARCHAR(100),
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+
+INSERT INTO orders (order_id, customer_id, name) VALUES
+(1, 101, 'Laptop'),
+(2, 102, 'Mobile'),
+(3, 103, 'Tablet'),
+(4, 101, 'Headphones'),
+(5, 104, 'Keyboard'),
+(6, 102, 'Mouse');
