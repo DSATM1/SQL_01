@@ -126,3 +126,144 @@ SELECT p.project_name, e.emp_name
 FROM projects p
 LEFT JOIN employees e ON p.emp_id = e.emp_id
 ORDER BY p.project_name;
+
+-- ============================================
+-- MORE INNER JOIN EXAMPLES
+-- ============================================
+
+-- Query 9: Get employee details with department and project info
+SELECT 
+    e.emp_name,
+    d.dept_name,
+    d.location,
+    p.project_name
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.dept_id
+INNER JOIN projects p ON e.emp_id = p.emp_id;
+
+-- Query 10: Find employees in 'IT' department earning above 50000
+SELECT e.emp_name, e.salary, d.dept_name
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.dept_id
+WHERE d.dept_name = 'IT' AND e.salary > 50000;
+
+-- Query 11: Get department-wise highest salary
+SELECT d.dept_name, MAX(e.salary) AS highest_salary, e.emp_name
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.dept_id
+GROUP BY d.dept_name, e.emp_name
+ORDER BY highest_salary DESC;
+
+-- Query 12: Find employees and their project counts
+SELECT 
+    e.emp_name,
+    COUNT(p.project_id) AS project_count
+FROM employees e
+INNER JOIN projects p ON e.emp_id = p.emp_id
+GROUP BY e.emp_name
+HAVING COUNT(p.project_id) > 0;
+
+-- Query 13: Get average salary by department (INNER JOIN)
+SELECT d.dept_name, AVG(e.salary) AS avg_salary
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.dept_id
+GROUP BY d.dept_name;
+
+-- Query 14: Find employees whose salary is between department average
+SELECT e.emp_name, e.salary, d.dept_name, d_avg.avg_salary
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.dept_id
+INNER JOIN (
+    SELECT dept_id, AVG(salary) AS avg_salary
+    FROM employees
+    GROUP BY dept_id
+) d_avg ON e.dept_id = d_avg.dept_id;
+
+-- Query 15: List all departments with at least one employee
+SELECT DISTINCT d.dept_name, d.location
+FROM departments d
+INNER JOIN employees e ON d.dept_id = e.dept_id;
+
+-- ============================================
+-- MORE LEFT JOIN EXAMPLES
+-- ============================================
+
+-- Query 16: Get all employees with optional project info
+SELECT e.emp_name, e.salary, p.project_name
+FROM employees e
+LEFT JOIN projects p ON e.emp_id = p.emp_id
+ORDER BY e.emp_name;
+
+-- Query 17: Count projects per employee (including those with no projects)
+SELECT 
+    e.emp_name,
+    COUNT(p.project_id) AS project_count
+FROM employees e
+LEFT JOIN projects p ON e.emp_id = p.emp_id
+GROUP BY e.emp_name;
+
+-- Query 18: Find employees without projects
+SELECT e.emp_name, e.salary
+FROM employees e
+LEFT JOIN projects p ON e.emp_id = p.emp_id
+WHERE p.project_id IS NULL;
+
+-- Query 19: Get all departments with employee count (including empty depts)
+SELECT d.dept_name, COUNT(e.emp_id) AS emp_count
+FROM departments d
+LEFT JOIN employees e ON d.dept_id = e.dept_id
+GROUP BY d.dept_name;
+
+-- Query 20: All employees with department (including those without dept)
+SELECT e.emp_name, d.dept_name, d.location
+FROM employees e
+LEFT JOIN departments d ON e.dept_id = d.dept_id;
+
+-- Query 21: Find employees and total project budget (hypothetical)
+SELECT 
+    e.emp_name,
+    COALESCE(p.project_name, 'No Project') AS project_status
+FROM employees e
+LEFT JOIN projects p ON e.emp_id = p.emp_id;
+
+-- Query 22: Get employees with salary details and department location
+SELECT 
+    e.emp_name,
+    e.salary,
+    d.dept_name,
+    d.location,
+    p.project_name
+FROM employees e
+LEFT JOIN departments d ON e.dept_id = d.dept_id
+LEFT JOIN projects p ON e.emp_id = p.emp_id;
+
+-- Query 23: List employees with salary rank within their department
+SELECT 
+    e.emp_name,
+    e.salary,
+    d.dept_name,
+    RANK() OVER (PARTITION BY d.dept_name ORDER BY e.salary DESC) AS salary_rank
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.dept_id;
+
+-- Query 24: Find departments where total salary exceeds threshold
+SELECT d.dept_name, SUM(e.salary) AS total_salary
+FROM departments d
+LEFT JOIN employees e ON d.dept_id = e.dept_id
+GROUP BY d.dept_name
+HAVING SUM(e.salary) > 50000;
+
+-- Query 25: Get employee details with salary comparison to team average
+SELECT 
+    e.emp_name,
+    e.salary,
+    d.dept_name,
+    team_avg.avg_salary,
+    (e.salary - team_avg.avg_salary) AS diff_from_avg
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.dept_id
+INNER JOIN (
+    SELECT dept_id, AVG(salary) AS avg_salary
+    FROM employees
+    GROUP BY dept_id
+) team_avg ON e.dept_id = team_avg.dept_id;
