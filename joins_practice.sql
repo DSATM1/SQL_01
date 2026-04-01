@@ -58,11 +58,15 @@ SELECT e.emp_name, d.dept_name
 FROM employees e
 RIGHT JOIN departments d ON e.dept_id = d.dept_id;
 
--- 4. FULL OUTER JOIN
+-- 4. FULL OUTER JOIN (using UNION workaround for MySQL compatibility)
 -- Returns all records when there is a match in either table
 SELECT e.emp_name, d.dept_name
 FROM employees e
-FULL OUTER JOIN departments d ON e.dept_id = d.dept_id;
+LEFT JOIN departments d ON e.dept_id = d.dept_id
+UNION
+SELECT e.emp_name, d.dept_name
+FROM employees e
+RIGHT JOIN departments d ON e.dept_id = d.dept_id;
 
 -- 5. CROSS JOIN
 -- Returns Cartesian product of both tables
