@@ -62,3 +62,5 @@ left join orders
 on customers.customer_id = orders.customer_id 
 group by customers.name
 having count(*) > 1;
+
+select department, avg(salary) from employees group by department having avg(salary) > (select avg(salary) from employees);
