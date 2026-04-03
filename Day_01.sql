@@ -110,3 +110,10 @@ row_number() over (partition by department order by salary desc ) as rnk
 from employees
 ) t 
 where rnk = 2;
+
+select name, salary 
+from (
+select name, salary, 
+dense_rank() over (order by salary desc) as dens_rnk
+ from employees) t
+ where dens_rnk <=2;
