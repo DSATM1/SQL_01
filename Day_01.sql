@@ -63,7 +63,11 @@ on customers.customer_id = orders.customer_id
 group by customers.name
 having count(*) > 1;
 
-select department, avg(salary) from employees group by department having avg(salary) > (select avg(salary) from employees);
+select department, avg(salary) 
+from employees 
+group by department 
+having avg(salary) > (select avg(salary) 
+from employees);
 
 SELECT department, salary
 FROM employees e1
@@ -72,8 +76,37 @@ WHERE salary < (
     FROM employees e2
     WHERE e2.department = e1.department
 );
-select name from customers c where exists (select 1 from orders o where o.customer_id = c.customer_id);
+select name from customers c 
+where exists (
+select 1 
+from orders o 
+where o.customer_id = c.customer_id
+);
 
-select name, department, salary, row_number() over (order by salary desc) Salary_Rank from employees; -- Descending 
+select name, department, salary, 
+row_number() over (order by salary desc) Salary_Rank 
+from employees; -- Descending 
 
-select name, department, salary, row_number() over (order by salary ) Salary_Rank from employees; -- Ascending
+select name, department, salary, 
+row_number() over (order by salary ) Salary_Rank 
+from employees; -- Ascending
+
+select name, salary, department, 
+Row_Number() over (partition by department order by salary ) as Dept_Rank 
+from employees;
+
+select name, salary, department, 
+rank() over (order by salary desc) as Rnk 
+from employees;
+
+select name, salary, 
+row_number() over (order by salary desc) Salary_Rank 
+from employees;
+
+select name, salary, department 
+from (
+select name, salary, department, 
+row_number() over (partition by department order by salary desc ) as rnk 
+from employees
+) t 
+where rnk = 2;
