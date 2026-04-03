@@ -65,7 +65,7 @@ having count(*) > 1;
 
 select department, avg(salary) from employees group by department having avg(salary) > (select avg(salary) from employees);
 
-SELECT name, department, salary
+SELECT department, salary
 FROM employees e1
 WHERE salary < (
     SELECT AVG(salary)
