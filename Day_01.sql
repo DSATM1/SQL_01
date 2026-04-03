@@ -67,7 +67,7 @@ select department, avg(salary) from employees group by department having avg(sal
 
 SELECT name, department, salary
 FROM employees e1
-WHERE salary > (
+WHERE salary < (
     SELECT AVG(salary)
     FROM employees e2
     WHERE e2.department = e1.department
