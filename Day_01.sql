@@ -64,3 +64,11 @@ group by customers.name
 having count(*) > 1;
 
 select department, avg(salary) from employees group by department having avg(salary) > (select avg(salary) from employees);
+
+SELECT name, department, salary
+FROM employees e1
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees e2
+    WHERE e2.department = e1.department
+);
