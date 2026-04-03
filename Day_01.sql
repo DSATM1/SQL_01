@@ -72,3 +72,4 @@ WHERE salary < (
     FROM employees e2
     WHERE e2.department = e1.department
 );
+select name from customers c where exists (select 1 from orders o where o.customer_id = c.customer_id);
