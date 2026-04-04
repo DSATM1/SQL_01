@@ -165,3 +165,16 @@ from customers
 inner join orders 
 on customers.customer_id = orders.customer_id 
 group by customers.name;
+
+
+SELECT name, total_amount,
+RANK() OVER (ORDER BY total_amount DESC) AS rnk
+FROM (
+    SELECT customers.name, 
+    COALESCE(SUM(orders.amount), 0) AS total_amount
+    FROM customers
+    LEFT JOIN orders
+    ON customers.customer_id = orders.customer_id
+    GROUP BY customers.name
+) t;
+
