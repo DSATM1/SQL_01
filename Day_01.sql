@@ -146,4 +146,15 @@ group by department
 where 
 rnk = 1;
 
-select customers.name, coalesce(sum(orders.amount),0) from customers left join orders on customers.customer_id = orders.customer_id group by customers.name;
+select customers.name, coalesce(sum(orders.amount),0) 
+from customers 
+left join orders 
+on customers.customer_id = orders.customer_id 
+group by customers.name;
+
+select customers.name, count(orders.order_id)
+from customers 
+left join orders 
+on customers.customer_id = orders.customer_id 
+group by customers.name
+having count(orders.order_id) > 1;
