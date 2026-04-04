@@ -158,3 +158,10 @@ left join orders
 on customers.customer_id = orders.customer_id 
 group by customers.name
 having count(orders.order_id) > 1;
+
+
+select customers.name, coalesce(sum(orders.amount),0), count(orders.order_id) 
+from customers 
+inner join orders 
+on customers.customer_id = orders.customer_id 
+group by customers.name;
