@@ -28,30 +28,34 @@ USE sql_practice;
 
 CREATE TABLE customers (
     customer_id INT PRIMARY KEY,
-    name VARCHAR(100)
+    name VARCHAR(50)
 );
 
-INSERT INTO customers (customer_id, name) VALUES
-(101, 'Sonu'),
-(102, 'Manu'),
-(103, 'Dinu'),
-(104, 'Damu');
+INSERT INTO customers VALUES
+(1, 'Ravi'),
+(2, 'Priya'),
+(3, 'Arjun'),
+(4, 'Neha');
+
+drop table customers;
 
 CREATE TABLE orders (
     order_id INT PRIMARY KEY,
     customer_id INT,
-    name VARCHAR(100),
-    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+    amount INT
 );
 
+INSERT INTO orders VALUES
+(101, 1, 5000),
+(102, 1, 3000),
+(103, 2, 4000),
+(104, 2, 2000),
+(105, 3, 1000);
 
-INSERT INTO orders (order_id, customer_id, name) VALUES
-(1, 101, 'Laptop'),
-(2, 102, 'Mobile'),
-(3, 103, 'Tablet'),
-(4, 101, 'Headphones'),
-(5, 104, 'Keyboard'),
-(6, 102, 'Mouse');
+
+
+drop table orders;
+
 
 select * from customers;
 select * from orders;
@@ -141,3 +145,5 @@ group by department
 ) t 
 where 
 rnk = 1;
+
+select customers.name, coalesce(sum(orders.amount),0) from customers left join orders on customers.customer_id = orders.customer_id group by customers.name;
