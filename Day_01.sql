@@ -103,13 +103,15 @@ select name, salary,
 row_number() over (order by salary desc) Salary_Rank 
 from employees;
 
+select department, name, salary, rank() over (order by salary desc) as rnk from employees;
+
 select name, salary, department 
 from (
 select name, salary, department, 
 row_number() over (partition by department order by salary desc ) as rnk 
 from employees
 ) t 
-where rnk = 2;
+where rnk = ;
 
 select name, salary 
 from (
@@ -117,3 +119,25 @@ select name, salary,
 dense_rank() over (order by salary desc) as dens_rnk
  from employees) t
  where dens_rnk <=2;
+ 
+-- Find 3rd highest salary
+-- Find employees earning more than their manager (we’ll simulate this later)
+-- Find department with highest total salary
+-- Find employees with same salary
+-- Find running total of salary
+
+select name, salary 
+from ( 
+select salary, name, row_number() over (order by salary desc) as rnk 
+from employees 
+) r 
+where rnk = 3;
+
+select department, total_salary 
+from ( SELECT department, sum(salary) as total_salary,
+RANK() OVER (ORDER BY sum(salary) DESC) AS rnk
+FROM employees 
+group by department
+) t 
+where 
+rnk = 1;
