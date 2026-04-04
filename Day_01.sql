@@ -151,7 +151,6 @@ from customers
 left join orders 
 on customers.customer_id = orders.customer_id 
 group by customers.name;
-<<<<<<< HEAD
 
 select customers.name, count(orders.order_id)
 from customers 
@@ -159,5 +158,3 @@ left join orders
 on customers.customer_id = orders.customer_id 
 group by customers.name
 having count(orders.order_id) > 1;
-=======
->>>>>>> 33dd731ceda67dcd920dd6bac3ca685f13621447
