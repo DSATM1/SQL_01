@@ -178,5 +178,10 @@ FROM (
     GROUP BY customers.name
 ) t;
 
-
+select customers.name, coalesce(sum(orders.amount),0) 
+from customers 
+left join orders 
+on customers.customer_id = orders.customer_id 
+group by customers.name 
+having sum(orders.amount)>5000;
 
