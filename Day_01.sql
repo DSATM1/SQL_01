@@ -115,7 +115,7 @@ select name, salary, department,
 row_number() over (partition by department order by salary desc ) as rnk 
 from employees
 ) t 
-where rnk = ;
+where rnk = 3;
 
 select name, salary 
 from (
@@ -177,4 +177,6 @@ FROM (
     ON customers.customer_id = orders.customer_id
     GROUP BY customers.name
 ) t;
+
+
 
