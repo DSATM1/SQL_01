@@ -225,3 +225,11 @@ group by c.name;
 select name, salary ,
 row_number() over (order by salary desc) as rnk 
 from employees;
+
+select name,department,salary 
+from employees e1 
+where salary > (
+	select avg(salary) 
+    from employees e2 
+    where e1.department=e2.department
+);
