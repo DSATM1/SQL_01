@@ -124,13 +124,7 @@ dense_rank() over (order by salary desc) as dens_rnk
  from employees) t
  where dens_rnk <=2;
  
--- Find 3rd highest salary
--- Find employees earning more than their manager (we’ll simulate this later)
--- Find department with highest total salary
--- Find employees with same salary
--- Find running total of salary
-
-select name, salary 
+ select name, salary 
 from ( 
 select salary, name, row_number() over (order by salary desc) as rnk 
 from employees 
@@ -185,3 +179,32 @@ on customers.customer_id = orders.customer_id
 group by customers.name 
 having sum(orders.amount)>5000;
 
+select name, department, salary, 
+row_number() over (partition by department order by salary desc) as rnk 
+from employees;
+
+
+-- Find 3rd highest salary
+-- Find employees earning more than their manager 
+-- Find department with highest total salary
+-- Find employees with same salary
+-- Find running total of salary
+
+-- Show top 2 highest salary employees
+-- Show employees with salary greater than department average
+-- Show department-wise total salary
+-- Show customers who never ordered
+-- Show 2nd highest salary employee
+
+-- Find employee with 2nd highest salary
+-- Find department with lowest average salary
+-- Find customers whose total order > 5000
+-- Find employees earning above department average
+-- Rank employees within department by salary
+
+select c.name, sum(o.amount) 
+from customers c 
+left join orders o 
+on c.customer_id = o.customer_id 
+group by c.name 
+having sum(o.amount) > 6000;
