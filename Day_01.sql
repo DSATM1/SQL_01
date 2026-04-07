@@ -208,3 +208,10 @@ left join orders o
 on c.customer_id = o.customer_id 
 group by c.name 
 having sum(o.amount) > 6000;
+
+select name, salary 
+from employees 
+where salary > (
+	select avg(salary) 
+	from employees 
+);
