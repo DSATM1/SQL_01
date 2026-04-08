@@ -273,3 +273,11 @@ FROM (
 ) t
 WHERE rnk = 2;
 
+SELECT name, department, salary
+FROM employees e1
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees e2
+    WHERE e2.department = e1.department
+);
+
