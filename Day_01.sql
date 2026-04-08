@@ -281,3 +281,10 @@ WHERE salary > (
     WHERE e2.department = e1.department
 );
 
+select name, department, salary , 
+row_number() over (partition by department order by salary desc) as rnk 
+from ( select department, name, salary
+from employees e1 
+where salary > (
+select avg(salary) from employees e2 where e2.department = e1.department ))t ;
+
