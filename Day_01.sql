@@ -263,3 +263,13 @@ where salary = (
 	) 
 );
 
+
+-- window function  
+SELECT name, salary
+FROM (
+    SELECT name, salary,
+    DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk
+    FROM employees
+) t
+WHERE rnk = 2;
+
