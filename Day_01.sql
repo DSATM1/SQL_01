@@ -207,7 +207,7 @@ from customers c
 left join orders o 
 on c.customer_id = o.customer_id 
 group by c.name 
-having sum(o.amount) > 6000;
+having sum(o.amount) > 7000;
 
 select name, salary 
 from employees 
@@ -241,4 +241,11 @@ row_number() over (order by salary desc) as rnk
 from employees 
 ) t 
 where rnk <=2;
+
+select c.name, sum(o.amount) as total 
+from customers c 
+left join orders o 
+on c.customer_id = o.customer_id 
+group by c.name 
+having total > 7000;
 
