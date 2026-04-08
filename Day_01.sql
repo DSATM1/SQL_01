@@ -233,3 +233,12 @@ where salary > (
     from employees e2 
     where e1.department=e2.department
 );
+
+select name, salary  
+from ( 
+select name, salary, 
+row_number() over (order by salary desc) as rnk 
+from employees 
+) t 
+where rnk <=2;
+
