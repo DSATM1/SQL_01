@@ -80,9 +80,10 @@ WHERE salary < (
     FROM employees e2
     WHERE e2.department = e1.department
 );
+
 select name from customers c 
 where exists (
-select 1 
+select 1
 from orders o 
 where o.customer_id = c.customer_id
 );
@@ -107,7 +108,9 @@ select name, salary,
 row_number() over (order by salary desc) Salary_Rank 
 from employees;
 
-select department, name, salary, rank() over (order by salary desc) as rnk from employees;
+select department, name, salary, 
+rank() over (order by salary desc) as rnk 
+from employees;
 
 select name, salary, department 
 from (
@@ -248,4 +251,15 @@ left join orders o
 on c.customer_id = o.customer_id 
 group by c.name 
 having total > 7000;
+
+select name, salary 
+from employees 
+where salary = (
+	select max(salary) 
+    from employees 
+    where salary < (
+		select max(salary) 
+        from employees 
+	) 
+);
 
