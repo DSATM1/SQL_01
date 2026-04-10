@@ -62,10 +62,10 @@ select * from orders;
 
 select customers.name, count(*) 
 from customers 
-left join orders 
+inner join orders 
 on customers.customer_id = orders.customer_id 
 group by customers.name
-having count(*) > 1;
+having count(*) = 1;
 
 select department, avg(salary) 
 from employees 
@@ -324,3 +324,12 @@ where salary = (
 	select max(salary) 
     from employees 
 );
+
+select c.name 
+from customers c 
+left join orders o 
+on c.customer_id = o.order_id 
+where o.customer_id IS NULL;
+
+
+
