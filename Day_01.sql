@@ -308,3 +308,6 @@ from (
 )x 
 where rnk <=2;
 
+select * from employees 
+where salary between 40000 and 50000;
+
