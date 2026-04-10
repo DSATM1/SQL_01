@@ -318,3 +318,9 @@ on c.customer_id = o.customer_id
 group by c.name;
 
 
+select name, salary 
+from employees 
+where salary = (
+	select max(salary) 
+    from employees 
+);
