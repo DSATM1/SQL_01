@@ -311,3 +311,10 @@ where rnk <=2;
 select * from employees 
 where salary between 40000 and 50000;
 
+select c.name, coalesce(sum(o.amount),0) 
+from customers c 
+left join orders o 
+on c.customer_id = o.customer_id 
+group by c.name;
+
+
