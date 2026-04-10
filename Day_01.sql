@@ -340,3 +340,6 @@ ON c.customer_id = o.customer_id
 GROUP BY c.name
 HAVING COUNT(o.customer_id) = 0;
 
+select name, department, salary, 
+row_number() over (partition by department order by salary desc) as rnk 
+from employees; 
