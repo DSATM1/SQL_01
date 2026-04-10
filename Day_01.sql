@@ -332,4 +332,11 @@ on c.customer_id = o.order_id
 where o.customer_id IS NULL;
 
 
+-- Alternative (Using COUNT) 
+SELECT c.name
+FROM customers c
+LEFT JOIN orders o
+ON c.customer_id = o.customer_id
+GROUP BY c.name
+HAVING COUNT(o.customer_id) = 0;
 
