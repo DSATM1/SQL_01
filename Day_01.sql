@@ -366,3 +366,9 @@ FROM customers c
 LEFT JOIN orders o ON c.customer_id = o.customer_id
 GROUP BY c.name
 HAVING COUNT(o.order_id) > 2;
+
+SELECT c.name, COALESCE(SUM(o.amount),0)
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.name
+HAVING SUM(o.amount) >= 6000;
