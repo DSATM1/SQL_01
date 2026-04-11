@@ -357,3 +357,6 @@ SELECT name, salary,
 DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk
 FROM employees;
 
+SELECT name, salary 
+FROM employees 
+WHERE salary < (SELECT AVG(salary) FROM employees);
