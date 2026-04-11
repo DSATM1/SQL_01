@@ -353,3 +353,7 @@ on c.customer_id=o.customer_id
 group by c.name 
 having count(o.order_id) = 1;
 
+SELECT name, salary,
+DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk
+FROM employees;
+
