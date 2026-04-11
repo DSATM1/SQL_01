@@ -360,3 +360,9 @@ FROM employees;
 SELECT name, salary 
 FROM employees 
 WHERE salary < (SELECT AVG(salary) FROM employees);
+
+SELECT c.name, COUNT(o.order_id)
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.name
+HAVING COUNT(o.order_id) > 2;
