@@ -62,7 +62,7 @@ select * from orders;
 
 select customers.name, count(*) 
 from customers 
-inner join orders 
+left join orders 
 on customers.customer_id = orders.customer_id 
 group by customers.name
 having count(*) = 1;
@@ -70,8 +70,10 @@ having count(*) = 1;
 select department, avg(salary) 
 from employees 
 group by department 
-having avg(salary) > (select avg(salary) 
-from employees);
+having avg(salary) > (
+	select avg(salary) 
+	from employees
+);
 
 SELECT department, salary
 FROM employees e1
@@ -343,3 +345,11 @@ HAVING COUNT(o.customer_id) = 0;
 select name, department, salary, 
 row_number() over (partition by department order by salary desc) as rnk 
 from employees; 
+
+select distinct c.name, count(o.order_id) 
+from customers c 
+inner join orders o 
+on c.customer_id=o.customer_id 
+group by c.name 
+having count(o.order_id) = 1;
+
