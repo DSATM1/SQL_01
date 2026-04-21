@@ -412,3 +412,8 @@ group by department
 having avg(salary) > (
 select avg(salary) 
 from employees );
+
+select customer_id ,sum(amount) 
+from orders
+where amount is not null
+group by customer_id;
