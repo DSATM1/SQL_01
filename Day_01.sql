@@ -156,7 +156,7 @@ from customers
 left join orders 
 on customers.customer_id = orders.customer_id 
 group by customers.name
-having count(orders.order_id) > 1;
+having count(orders.order_id) = 2;
 
 
 select customers.name, coalesce(sum(orders.amount),0), count(orders.order_id) 
@@ -389,3 +389,11 @@ from employees
 
 
 select * from employees; 
+
+select c.name, count(o.order_id) 
+from customers c 
+left join orders o 
+on c.customer_id = o.customer_id 
+group by c.name
+having count(o.order_id) = 2;
+
