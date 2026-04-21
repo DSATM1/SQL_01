@@ -397,3 +397,10 @@ on c.customer_id = o.customer_id
 group by c.name
 having count(o.order_id) = 2;
 
+
+select name, salary 
+from (
+select name, salary , 
+row_number() over (order by salary desc) as rnk 
+from employees )t
+where rnk <=3;
