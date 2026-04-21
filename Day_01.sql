@@ -404,3 +404,11 @@ select name, salary ,
 row_number() over (order by salary desc) as rnk 
 from employees )t
 where rnk <=3;
+
+
+select department, avg(salary) 
+from employees 
+group by department 
+having avg(salary) > (
+select avg(salary) 
+from employees );
