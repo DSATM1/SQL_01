@@ -444,3 +444,33 @@ having sum(o.amount) > 8000;
 select order_id, customer_id, amount, 
 sum(amount) over (partition by customer_id order by order_id ) as rnk 
 from orders;
+
+-- select name, department, salary , 
+-- row_number() over (partition by department order by salary desc) as rnk 
+-- from (
+-- 	select name, department, salary 
+-- 	from employees e1
+-- 	where salary > (
+-- 		select avg(salary) 
+-- 		from employees e2
+-- 		where e2.department = e1.department
+--         )
+-- )t
+-- where rnk <=3;
+
+SELECT *
+FROM (
+    SELECT name, department, salary, 
+    ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) AS rnk 
+    FROM (
+        SELECT name, department, salary 
+        FROM employees e1
+        WHERE salary > (
+            SELECT AVG(salary) 
+            FROM employees e2
+            WHERE e2.department = e1.department
+        )
+    ) t
+) x
+WHERE rnk <= 3;
+    
