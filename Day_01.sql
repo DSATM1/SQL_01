@@ -440,3 +440,7 @@ left join orders o
 on c.customer_id = o.customer_id 
 group by c.name
 having sum(o.amount) > 8000;
+
+select order_id, customer_id, amount, 
+sum(amount) over (partition by customer_id order by order_id ) as rnk 
+from orders;
