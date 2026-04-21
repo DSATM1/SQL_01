@@ -389,7 +389,7 @@ from employees
 
 
 select * from employees; 
-
+select * from employees;
 select c.name, count(o.order_id) 
 from customers c 
 left join orders o 
@@ -417,3 +417,19 @@ select customer_id ,sum(amount)
 from orders
 where amount is not null
 group by customer_id;
+
+
+select name, department, salary from
+(select name, department, salary, 
+row_number() over (partition by name, department order by salary desc) as rnk from employees) t
+where rnk = 1;
+
+select * from orders;
+
+select customer_id, amount, order_id 
+from ( 
+select customer_id, amount, order_id,
+row_number() over (partition by customer_id,amount order by order_id desc) as rnk
+from orders)t
+where rnk = 1; 
+
