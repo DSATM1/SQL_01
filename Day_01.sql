@@ -372,3 +372,10 @@ FROM customers c
 LEFT JOIN orders o ON c.customer_id = o.customer_id
 GROUP BY c.name
 HAVING SUM(o.amount) >= 6000;
+
+
+select c.name, coalesce(sum(o.amount),0) from customers c 
+inner join orders o 
+on c.customer_id = o.customer_id 
+group by c.name
+having sum(o.amount) between 4000 and 9000;
