@@ -379,3 +379,13 @@ inner join orders o
 on c.customer_id = o.customer_id 
 group by c.name
 having sum(o.amount) between 4000 and 9000;
+
+select salary, name
+from employees 
+where salary > (
+select min(salary) 
+from employees
+);
+
+
+select * from employees; 
