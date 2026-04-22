@@ -12,11 +12,11 @@ INSERT INTO customers VALUES
 (3, 'Arjun'),
 (4, 'Neha');
 
--- create table orders (
--- order_id int primary key,
--- customer_id int,
--- amount int 
--- );
+create table orders (
+order_id int primary key,
+customer_id int,
+amount int 
+);
 
 -- insert into orders values
 -- (101, 1, 5000),
