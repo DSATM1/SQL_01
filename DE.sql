@@ -18,12 +18,12 @@ customer_id int,
 amount int 
 );
 
--- insert into orders values
--- (101, 1, 5000),
--- (102, 1, 3000),
--- (103, 2, 4000),
--- (104, 2, 2000),
--- (105, 3, 1000);
+insert into orders values
+(101, 1, 5000),
+(102, 1, 3000),
+(103, 2, 4000),
+(104, 2, 2000),
+(105, 3, 1000);
 
 -- select * from customers;
 
