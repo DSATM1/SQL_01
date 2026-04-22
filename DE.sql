@@ -6,11 +6,11 @@ CREATE TABLE customers (
     name VARCHAR(50)
 );
 
--- INSERT INTO customers VALUES
--- (1, 'Ravi'),
--- (2, 'Priya'),
--- (3, 'Arjun'),
--- (4, 'Neha');
+INSERT INTO customers VALUES
+(1, 'Ravi'),
+(2, 'Priya'),
+(3, 'Arjun'),
+(4, 'Neha');
 
 -- create table orders (
 -- order_id int primary key,
