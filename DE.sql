@@ -1,10 +1,10 @@
 create database DE;
 use  DE;
 
--- CREATE TABLE customers (
---     customer_id INT PRIMARY KEY,
---     name VARCHAR(50)
--- );
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    name VARCHAR(50)
+);
 
 -- INSERT INTO customers VALUES
 -- (1, 'Ravi'),
