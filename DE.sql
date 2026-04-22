@@ -55,4 +55,25 @@ from (
     left join orders o 
     on c.customer_id = o.customer_id 
     group by c.name 
-)t ;
+)t;
+
+SELECT order_id, customer_id, amount,
+SUM(amount) OVER (
+    PARTITION BY customer_id 
+    ORDER BY order_id
+) AS running_total
+FROM orders;
+
+-- To find customers with no orders: 
+select c.name
+from customers c 
+left join orders o 
+on c.customer_id = o.customer_id 
+group by c.name
+having count(o.order_id) = 0;
+
+SELECT c.name
+FROM customers c
+LEFT JOIN orders o 
+ON c.customer_id = o.customer_id
+WHERE o.customer_id IS NULL;
