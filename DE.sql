@@ -29,9 +29,9 @@ select * from customers;
 
 select * from orders;
 
--- select c.name, sum(o.amount), count(o.order_id) 
--- from customers c 
--- left join orders o 
--- on c.customer_id = o.customer_id 
--- group by c.name 
--- having sum(o.amount) > 5000; 
+select c.name, sum(o.amount), count(o.order_id) 
+from customers c 
+left join orders o 
+on c.customer_id = o.customer_id 
+group by c.name 
+having sum(o.amount) > 5000; 
