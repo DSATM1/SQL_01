@@ -35,3 +35,13 @@ left join orders o
 on c.customer_id = o.customer_id 
 group by c.name 
 having sum(o.amount) > 5000; 
+
+select customer_id, amount, order_id 
+from (
+	select customer_id, amount, order_id, 
+    row_number() over (
+		partition by customer_id, amount order by order_id desc
+	) as rnk 
+from orders 
+) t
+where rnk = 1;
