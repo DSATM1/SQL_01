@@ -390,6 +390,8 @@ from employees
 
 select * from employees; 
 select * from employees;
+
+
 select c.name, count(o.order_id) 
 from customers c 
 left join orders o 
