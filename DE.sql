@@ -25,9 +25,9 @@ insert into orders values
 (104, 2, 2000),
 (105, 3, 1000);
 
--- select * from customers;
+select * from customers;
 
--- select * from orders;
+select * from orders;
 
 -- select c.name, sum(o.amount), count(o.order_id) 
 -- from customers c 
