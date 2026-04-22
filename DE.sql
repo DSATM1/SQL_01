@@ -45,3 +45,14 @@ from (
 from orders 
 ) t
 where rnk = 1;
+
+select name, t_amount, 
+rank() over (order by t_amount desc) as rnk 
+from (
+	select c.name, 
+    coalesce(sum(o.amount),0) as t_amount
+    from customers c
+    left join orders o 
+    on c.customer_id = o.customer_id 
+    group by c.name 
+)t ;
