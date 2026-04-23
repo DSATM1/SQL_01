@@ -44,3 +44,10 @@ FROM (
     FROM orders
 ) t
 WHERE rnk = 1;
+
+select c.name,sum(o.amount) 
+from customers c 
+left join orders o 
+on c.customer_id = o.customer_id 
+group by c.name
+having sum(o.amount) > 6000;
