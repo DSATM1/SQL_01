@@ -30,3 +30,6 @@ select * from customers;
 
 select * from orders;
 
+select customer_id, sum(amount) from orders
+where amount is not null
+group by customer_id;
