@@ -25,3 +25,8 @@ insert into orders values
 (104, 2, 2000),
 (105, 3, 1000),
 (106, 3, 1000);
+
+select * from customers;
+
+select * from orders;
+
