@@ -33,3 +33,14 @@ select * from orders;
 select customer_id, sum(amount) from orders
 where amount is not null
 group by customer_id;
+
+SELECT customer_id, amount, order_id
+FROM (
+    SELECT customer_id, amount, order_id,
+    ROW_NUMBER() OVER (
+        PARTITION BY customer_id, amount 
+        ORDER BY order_id DESC
+    ) AS rnk
+    FROM orders
+) t
+WHERE rnk = 1;
