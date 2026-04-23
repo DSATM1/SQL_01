@@ -51,3 +51,10 @@ left join orders o
 on c.customer_id = o.customer_id 
 group by c.name
 having sum(o.amount) > 6000;
+
+SELECT order_id, customer_id, amount, 
+SUM(amount) OVER (
+    PARTITION BY customer_id 
+    ORDER BY order_id
+) AS running_total
+FROM orders;
