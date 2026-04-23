@@ -58,3 +58,23 @@ SUM(amount) OVER (
     ORDER BY order_id
 ) AS running_total
 FROM orders;
+
+SELECT name, total_amount
+FROM (
+    SELECT c.name, SUM(o.amount) AS total_amount 
+    FROM customers c 
+    LEFT JOIN orders o 
+    ON c.customer_id = o.customer_id
+    GROUP BY c.name 
+) t
+WHERE total_amount > (
+    SELECT AVG(total_amount)
+    FROM (
+        SELECT c.name, SUM(o.amount) AS total_amount 
+        FROM customers c 
+        LEFT JOIN orders o 
+        ON c.customer_id = o.customer_id
+        GROUP BY c.name
+    ) x
+);
+

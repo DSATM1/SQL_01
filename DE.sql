@@ -70,7 +70,7 @@ from customers c
 left join orders o 
 on c.customer_id = o.customer_id 
 group by c.name
-having count(o.order_id) = 0;
+having count(o.order_id) = 2;
 
 SELECT c.name
 FROM customers c
